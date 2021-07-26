@@ -104,8 +104,21 @@ fi
     locate *.mkv *.webm *.flv *.vob *.ogv *.drc *.gifv *.mng *.avi$ *.mov *.qt *.wmv *.yuv *.rm *.rmvb *.asf *.amv *.mp4$ *.m4v *.mp *.m?v *.svi *.3gp *.flv *.f4v >> /var/local/mediafiles.log
     echo "||||Audo Files||||" >> /var/local/mediafiles.log
     locate *.3ga *.aac *.aiff *.amr *.ape *.arf *.asf *.asx *.cda *.dvf *.flac *.gp4 *.gp5 *.gpx *.logic *.m4a *.m4b *.m4p *.midi *.mp3 *.pcm *.rec *.snd *.sng *.uax *.wav *.wma *.wpl *.zab >> /var/local/mediafiles.log
+    echo "||||Photo Files||||" >> /var/local/mediafiles.log
+    locate *.gif *.png *.jpg *.jpeg >> /var/local/mediafiles.log
 fi 
 
+#Log items that could help with forensics
+  if [ "$FORENSICS_LOG" = true ]; then
+    cd "Desktop"
+    cat /etc/passwd > user
+    cat /etc/group > group
+    cat /etc/crontab > task
+    Initctl list
+    apt list installed > packages
+    service --status-all
+    netstat -ln > network\
+fi
 #Lists all cronjobs & output to /var/local/cronjoblist.log
   if [ "$LOG_CRON" = true ]; then
     echo "Outputting cronjobs to /var/local/cronjoblist.log"
